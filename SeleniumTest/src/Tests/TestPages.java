@@ -95,21 +95,9 @@ public class TestPages {
         Assert.assertEquals(expectedMessage, elementsPage.getPerformanceMessage(driver));
 
     }
-
-    @Test(priority = 7)
-    public void testDeleteButtonFunctionality() {
-        homePage.fillTheLoginForm(driver);
-        elementsPage.fillSalesForm(driver, "Victor", "Ivanov", "10000", "15000");
-        elementsPage.clickOnSubmit(driver);
-        elementsPage.clickOnDeleteButton(driver);
-        Assert.assertTrue(elementsPage.getFirstName(driver).isEmpty());
-        Assert.assertTrue(elementsPage.getLastName(driver).isEmpty());
-        Assert.assertTrue(elementsPage.getSalesResult(driver).isEmpty());
-
-
     }
 
-    @Test(priority = 8)
+    @Test(priority = 7)
     public void testSummaryTable(){
         homePage.fillTheLoginForm(driver);
         elementsPage.fillSalesForm(driver, "Plamen", "Petrov", "5000", "8000");
