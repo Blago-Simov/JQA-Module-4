@@ -2,13 +2,12 @@ package Tests;
 
 import Pages.ElementsPage;
 import Pages.HomePage;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 
 public class TestPages {
 
@@ -19,7 +18,7 @@ public class TestPages {
     ElementsPage elementsPage;
 
 
-    @Before
+    @BeforeTest
     public void loadHomePage() throws InterruptedException {
         homePage = new HomePage();
         elementsPage = new ElementsPage();
@@ -29,25 +28,25 @@ public class TestPages {
         Thread.sleep(1000);
     }
 
-    @Test
+    @Test(priority = 0)
     public void testTheHomePageUrl() {
         String currentUrl = driver.getCurrentUrl();
         String expectedUrl = homePage.getHomePageUrl() + "/";
         Assert.assertEquals("[ERROR] Different than the expected URL!", expectedUrl, currentUrl);
     }
 
-    @Test
+    @Test(priority = 1)
     public void checkHomePageHeaderText() {
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
     }
 
-    @Test
+    @Test(priority = 2)
     public void successfulLogin() {
         homePage.fillTheLoginForm(driver);
         Assert.assertTrue(elementsPage.isLogOutButtonDisplayed(driver));
     }
 
-    @Test
+    @Test(priority = 3)
     public void successfulLogOut() {
         homePage.fillTheLoginForm(driver);
         Assert.assertTrue(elementsPage.isLogOutButtonDisplayed(driver));
@@ -55,7 +54,7 @@ public class TestPages {
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
     }
 
-    @Test
+    @Test(priority = 4)
     public void testSalesFillingForm() {
         homePage.fillTheLoginForm(driver);
         elementsPage.fillSalesForm(driver, "Angel", "Angelov", "5000", "7000");
@@ -69,7 +68,7 @@ public class TestPages {
 
     }
 
-    @Test
+    @Test(priority = 5)
     public void testCalculationSalesForm() {
         homePage.fillTheLoginForm(driver);
         elementsPage.fillSalesForm(driver, "Petar", "Petrov", "5000", "8000");
@@ -85,7 +84,7 @@ public class TestPages {
 
     }
 
-    @Test
+    @Test(priority = 6)
     public void testPerformanceButtonFunctionality() {
         homePage.fillTheLoginForm(driver);
         elementsPage.fillSalesForm(driver, "Anton", "Angelov", "10000", "15000");
@@ -97,7 +96,7 @@ public class TestPages {
 
     }
 
-    @Test
+    @Test(priority = 7)
     public void testDeleteButtonFunctionality() {
         homePage.fillTheLoginForm(driver);
         elementsPage.fillSalesForm(driver, "Victor", "Ivanov", "10000", "15000");
@@ -110,7 +109,22 @@ public class TestPages {
 
     }
 
-    @After
+    @Test(priority = 8)
+    public void testSummaryTable(){
+        homePage.fillTheLoginForm(driver);
+        elementsPage.fillSalesForm(driver, "Plamen", "Petrov", "5000", "8000");
+        elementsPage.clickOnSubmit(driver);
+        String expectedName = "Plamen Petrov";
+        Assert.assertEquals("[ERROR] Different than the expected Name!"
+                , expectedName, elementsPage.getTableSummaryName(driver));
+        Assert.assertEquals("[ERROR] Different than the expected Target!"
+                , "$5,000", elementsPage.getTableSummaryTarget(driver));
+        Assert.assertEquals("[ERROR] Different than the expected Result!"
+                , "$8,000", elementsPage.getTableSummaryResult(driver));
+        Assert.assertEquals("$3,000", elementsPage.getTableSummaryDifference(driver));
+
+    }
+    @AfterTest
     public void quitDriver() {
         driver.quit();
     }
