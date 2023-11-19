@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ElementsPage {
@@ -20,12 +22,10 @@ public class ElementsPage {
     private By salesTargetDropDown = By.xpath("//select[@id='salestarget']");
     private By salesResultField = By.xpath("//input[@id='salesresult']");
     private By submitButton = By.xpath("//button[contains(text(),'Submit')]");
-    private By activeSalesPeople = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div[1]");
-    private By expectedSales = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div[2]");
-    private By actualSales = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div[3]");
-    private By differenceResult = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div[4]");
-
-    private By tableSummaryName = By.xpath("//tbody/tr/td[1]");
+    private By salesCalculationSummary = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div");
+    private By tableSummary = By.xpath("//tbody/tr/td");
+    private List<WebElement> performanceTable = new ArrayList<>();
+    private List<WebElement> calculationTable = new ArrayList<>();
 
     private By performanceButton = By.xpath("//div/button[1]");
     private By deleteAllSalesEntriesButton = By.xpath("//div/button[2]");
@@ -91,28 +91,48 @@ public class ElementsPage {
     }
 
     public String getActivePeopleSalesResult(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", activeSalesPeople);
-        return driver.findElement(activeSalesPeople).getText();
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", salesCalculationSummary);
+        calculationTable = driver.findElements(salesCalculationSummary);
+        return calculationTable.get(0).getText();
     }
 
     public String getExpectedSalesResult(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", expectedSales);
-        return driver.findElement(expectedSales).getText();
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", salesCalculationSummary);
+        return calculationTable.get(1).getText();
     }
 
     public String getActualSalesResult(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", actualSales);
-        return driver.findElement(actualSales).getText();
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", salesCalculationSummary);
+        return calculationTable.get(2).getText();
     }
 
     public String getDifferenceResult(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", differenceResult);
-        return driver.findElement(differenceResult).getText();
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", salesCalculationSummary);
+        return calculationTable.get(3).getText();
     }
 
     public String getTableSummaryName(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummaryName);
-        return driver.findElement(tableSummaryName).getText();
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummary);
+        performanceTable = driver.findElements(tableSummary);
+        return performanceTable.get(0).getText();
+    }
+
+    public String getTableSummaryTarget(WebDriver driver) {
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummary);
+        performanceTable = driver.findElements(tableSummary);
+        return performanceTable.get(1).getText();
+    }
+
+    public String getTableSummaryResult(WebDriver driver) {
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummary);
+        performanceTable = driver.findElements(tableSummary);
+        return performanceTable.get(2).getText();
+    }
+
+    public String getTableSummaryDifference(WebDriver driver) {
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummary);
+        performanceTable = driver.findElements(tableSummary);
+        return performanceTable.get(3).getText();
     }
 
     public String getFirstName(WebDriver driver) {
@@ -126,5 +146,6 @@ public class ElementsPage {
     public String getSalesResult(WebDriver driver) {
         return driver.findElement(salesResultField).getText();
     }
+
 
 }
