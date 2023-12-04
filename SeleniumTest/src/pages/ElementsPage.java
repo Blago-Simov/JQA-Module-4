@@ -14,10 +14,7 @@ import java.util.List;
 public class ElementsPage {
     Waits waits = new Waits();
     private Integer activeSalesPeopleCount = 0;
-
-
     private By buttonLogout = By.xpath("//button[@id='logout']");
-
     private By firstNameField = By.xpath("//input[@id='firstname']");
     private By lastNameField = By.xpath("//input[@id='lastname']");
     private By salesTargetDropDown = By.xpath("//select[@id='salestarget']");
@@ -27,7 +24,6 @@ public class ElementsPage {
     private By tableSummary = By.xpath("//tbody/tr/td");
     private List<WebElement> performanceTable = new ArrayList<>();
     private List<WebElement> calculationTable = new ArrayList<>();
-
     private By performanceButton = By.xpath("//div/button[1]");
     private By deleteAllSalesEntriesButton = By.xpath("//div/button[2]");
     private By performanceTextField = By.xpath("//td/span[@class ='performance']");
