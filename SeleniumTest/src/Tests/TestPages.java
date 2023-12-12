@@ -24,7 +24,7 @@ public class TestPages {
         elementsPage = new ElementsPage();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        Thread.sleep(2000);
+        
     }
 
     @Test(priority = 0)
@@ -33,14 +33,14 @@ public class TestPages {
         String currentUrl = driver.getCurrentUrl();
         String expectedUrl = homePage.getHomePageUrl() + "/";
         Assert.assertEquals("[ERROR] Different than the expected URL!", expectedUrl, currentUrl);
-        Thread.sleep(2000);
+       
     }
 
     @Test(priority = 1)
     public void checkHomePageHeaderText() throws InterruptedException {
         driver.get(homePage.getHomePageUrl());
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-        Thread.sleep(2000);
+        
     }
 
     @Test(priority = 2)
@@ -60,7 +60,7 @@ public class TestPages {
         Assert.assertTrue(elementsPage.isLogOutButtonDisplayed(driver));
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-        Thread.sleep(2000);
+       
     }
 
     @Test(priority = 4)
@@ -77,7 +77,7 @@ public class TestPages {
         elementsPage.clickOnDeleteButton(driver);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-        Thread.sleep(3000);
+        
 
     }
 
@@ -95,7 +95,7 @@ public class TestPages {
         elementsPage.clickOnDeleteButton(driver);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-        Thread.sleep(2000);
+       
     }
 
     @Test(priority = 6)
@@ -110,7 +110,7 @@ public class TestPages {
         elementsPage.clickOnDeleteButton(driver);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-        Thread.sleep(2000);
+        
     }
 
     @Test(priority = 7)
@@ -122,7 +122,6 @@ public class TestPages {
         Assert.assertTrue(elementsPage.isPerformanceButtonDisplayed(driver));
         elementsPage.clickOnDeleteButton(driver);
         Assert.assertTrue(elementsPage.isPerformanceTableEmpty());
-        Thread.sleep(2000);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
 
@@ -161,7 +160,6 @@ public class TestPages {
         Assert.assertTrue("[ERROR] Different than the expected Result!"
                 , elementsPage.getCalculationTableElement(driver,"$-56,988"));
         elementsPage.clickOnDeleteButton(driver);
-        Thread.sleep(2000);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
 
