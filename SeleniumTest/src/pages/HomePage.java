@@ -9,16 +9,15 @@ import java.time.Duration;
 
 public class HomePage {
 
-    final String userName = "maria";
-    final String password = "thoushallnotpass";
+
     private final String homePageUrl = "https://robotsparebinindustries.com";
 
 
-    private By userNameTextField = By.xpath("//input[@id='username']");
+    private By userNameTextField = By.id("username");
 
-    private By passwordTextField = By.xpath("//input[@id='password']");
+    private By passwordTextField = By.id("password");
 
-    private By loginButton = By.xpath("//button[contains(text(),'Log in')]");
+    private By loginButton = By.tagName("button");
     private By homePageHeaderText = By.tagName("h4");
 
     Waits waits = new Waits();
@@ -29,16 +28,16 @@ public class HomePage {
 
 
     public String getHomePageHeaderText(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", homePageHeaderText);
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", homePageHeaderText);
         return driver.findElement(homePageHeaderText).getText();
     }
 
-    public void fillTheLoginForm(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", userNameTextField);
-        driver.findElement(userNameTextField).sendKeys(userName);
-        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", passwordTextField);
-        driver.findElement(passwordTextField).sendKeys(password);
-        waits.customWait(driver, Duration.ofSeconds(2), "elementToBeClickable", loginButton);
+    public void fillTheLoginForm(WebDriver driver,String arg1,String arg2) {
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", userNameTextField);
+        driver.findElement(userNameTextField).sendKeys(arg1);
+        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", passwordTextField);
+        driver.findElement(passwordTextField).sendKeys(arg2);
+        waits.customWait(driver, Duration.ofSeconds(10), "elementToBeClickable", loginButton);
         driver.findElement(loginButton).click();
     }
 }
