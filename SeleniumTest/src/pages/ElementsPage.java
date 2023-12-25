@@ -14,43 +14,49 @@ import java.util.List;
 public class ElementsPage {
     Waits waits = new Waits();
     private Integer activeSalesPeopleCount = 0;
-    private By buttonLogout = By.xpath("//button[@id='logout']");
-    private By firstNameField = By.xpath("//input[@id='firstname']");
-    private By lastNameField = By.xpath("//input[@id='lastname']");
-    private By salesTargetDropDown = By.xpath("//select[@id='salestarget']");
-    private By salesResultField = By.xpath("//input[@id='salesresult']");
-    private By submitButton = By.xpath("//button[contains(text(),'Submit')]");
+
+
+    private By buttonLogout = By.id("logout");
+
+    private By firstNameField = By.id("firstname");
+    private By lastNameField = By.id("lastname");
+    private By salesTargetDropDown = By.id("salestarget");
+    private By salesResultField = By.id("salesresult");
+    private By submitButton = By.cssSelector("#sales-form > button");
     private By salesCalculationSummary = By.xpath("//div[@class = 'alert alert-dark sales-summary']/div");
     private By tableSummary = By.xpath("//tbody/tr/td");
     private List<WebElement> performanceTable = new ArrayList<>();
     private List<WebElement> calculationTable = new ArrayList<>();
+
     private By performanceButton = By.xpath("//div/button[1]");
     private By deleteAllSalesEntriesButton = By.xpath("//div/button[2]");
     private By performanceTextField = By.xpath("//td/span[@class ='performance']");
 
+    private By userNameTextField = By.className("username");
+
     public void clickOnLogout(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", buttonLogout);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", buttonLogout);
         driver.findElement(buttonLogout).click();
     }
 
     public void clickOnPerformanceButton(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", performanceButton);
+        waits.customWait(driver, Duration.ofSeconds(2), "elementToBeClickable", performanceButton);
         driver.findElement(performanceButton).click();
 
     }
 
     public void clickOnDeleteButton(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", deleteAllSalesEntriesButton);
+        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", deleteAllSalesEntriesButton);
         driver.findElement(deleteAllSalesEntriesButton).click();
     }
 
     public String getPerformanceMessage(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", performanceTextField);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", performanceTextField);
         return driver.findElement(performanceTextField).getText();
     }
 
     public boolean isPerformanceButtonDisplayed(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", performanceButton);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", performanceButton);
         return driver.findElement(performanceButton).isEnabled();
     }
 
@@ -59,24 +65,24 @@ public class ElementsPage {
             lastName, String salesTarget, double salesResult) {
         waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", firstNameField);
         driver.findElement(firstNameField).sendKeys(firstName);
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", lastNameField);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", lastNameField);
         driver.findElement(lastNameField).sendKeys(lastName);
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", salesTargetDropDown);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", salesTargetDropDown);
         Select targetObj = new Select(driver.findElement(salesTargetDropDown));
         targetObj.selectByValue(salesTarget);
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", salesResultField);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", salesResultField);
         String salesField = "" + salesResult;
         driver.findElement(salesResultField).sendKeys(salesField);
 
     }
 
-    public boolean isLogOutButtonDisplayed(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", buttonLogout);
-        return driver.findElement(buttonLogout).isDisplayed();
+    public boolean isUsernameDisplayed(WebDriver driver) {
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", userNameTextField);
+        return driver.findElement(userNameTextField).isDisplayed();
     }
 
     public void clickOnSubmit(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", submitButton);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", submitButton);
         driver.findElement(submitButton).click();
         activeSalesPeopleCount++;
 
@@ -88,7 +94,7 @@ public class ElementsPage {
     }
 
     public Boolean getCalculationTableElement(WebDriver driver, String param) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", salesCalculationSummary);
+        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", salesCalculationSummary);
         calculationTable = driver.findElements(salesCalculationSummary);
         if (calculationTable != null) {
             for (WebElement e : calculationTable) {
@@ -102,7 +108,7 @@ public class ElementsPage {
         return calculationTable.get(0).getText();
     }
     public Boolean getSummaryTableElement(WebDriver driver, String value) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", tableSummary);
+        waits.customWait(driver, Duration.ofSeconds(20), "presenceOfElement", tableSummary);
         performanceTable = driver.findElements(tableSummary);
         if (performanceTable != null) {
             for (WebElement e : performanceTable) {
