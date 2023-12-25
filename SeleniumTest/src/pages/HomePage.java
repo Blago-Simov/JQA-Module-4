@@ -37,7 +37,7 @@ public class HomePage {
         driver.findElement(userNameTextField).sendKeys(arg1);
         waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", passwordTextField);
         driver.findElement(passwordTextField).sendKeys(arg2);
-        waits.customWait(driver, Duration.ofSeconds(10), "elementToBeClickable", loginButton);
+        waits.customWait(driver, Duration.ofSeconds(3), "elementToBeClickable", loginButton);
         driver.findElement(loginButton).click();
     }
 }
