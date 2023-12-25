@@ -46,7 +46,7 @@ public class ElementsPage {
     }
 
     public void clickOnDeleteButton(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", deleteAllSalesEntriesButton);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", deleteAllSalesEntriesButton);
         driver.findElement(deleteAllSalesEntriesButton).click();
     }
 
@@ -63,7 +63,7 @@ public class ElementsPage {
 
     public void fillSalesForm(WebDriver driver, String firstName, String
             lastName, String salesTarget, double salesResult) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", firstNameField);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", firstNameField);
         driver.findElement(firstNameField).sendKeys(firstName);
         waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", lastNameField);
         driver.findElement(lastNameField).sendKeys(lastName);
@@ -94,7 +94,7 @@ public class ElementsPage {
     }
 
     public Boolean getCalculationTableElement(WebDriver driver, String param) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", salesCalculationSummary);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", salesCalculationSummary);
         calculationTable = driver.findElements(salesCalculationSummary);
         if (calculationTable != null) {
             for (WebElement e : calculationTable) {
@@ -108,7 +108,7 @@ public class ElementsPage {
         return calculationTable.get(0).getText();
     }
     public Boolean getSummaryTableElement(WebDriver driver, String value) {
-        waits.customWait(driver, Duration.ofSeconds(20), "presenceOfElement", tableSummary);
+        waits.customWait(driver, Duration.ofSeconds(2), "presenceOfElement", tableSummary);
         performanceTable = driver.findElements(tableSummary);
         if (performanceTable != null) {
             for (WebElement e : performanceTable) {
