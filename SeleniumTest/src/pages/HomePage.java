@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 
 public class HomePage {
@@ -22,22 +23,24 @@ public class HomePage {
 
     Waits waits = new Waits();
 
-    public String getHomePageUrl() {
+    public String getHomePageUrl(WebDriver driver) {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return homePageUrl;
     }
 
 
     public String getHomePageHeaderText(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", homePageHeaderText);
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", homePageHeaderText);
         return driver.findElement(homePageHeaderText).getText();
     }
 
-    public void fillTheLoginForm(WebDriver driver,String arg1,String arg2) {
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", userNameTextField);
+    public void fillTheLoginForm(WebDriver driver, String arg1, String arg2) throws InterruptedException {
+        waits.customWait(driver, Duration.ofSeconds(20), "presenceOfElement", userNameTextField);
         driver.findElement(userNameTextField).sendKeys(arg1);
-        waits.customWait(driver, Duration.ofSeconds(3), "presenceOfElement", passwordTextField);
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", passwordTextField);
         driver.findElement(passwordTextField).sendKeys(arg2);
-        waits.customWait(driver, Duration.ofSeconds(3), "elementToBeClickable", loginButton);
+        waits.customWait(driver, Duration.ofSeconds(10), "elementToBeClickable", loginButton);
         driver.findElement(loginButton).click();
+        Thread.sleep(5000);
     }
 }
