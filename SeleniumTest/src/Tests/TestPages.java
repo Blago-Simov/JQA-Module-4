@@ -30,35 +30,28 @@ public class TestPages {
     }
 
     @Test(priority = 1)
-    public void testTheHome()  {
-        driver.get(homePage.getHomePageUrl());
+    public void testTheHoePage() {
+        driver.get(homePage.getHomePageUrl(driver));
         String currentUrl = driver.getCurrentUrl();
-        String expectedUrl = homePage.getHomePageUrl() + "/";
+        String expectedUrl = homePage.getHomePageUrl(driver) + "/";
         Assert.assertEquals("[ERROR] Different than the expected URL!", expectedUrl, currentUrl);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
     }
 
 
     @Test(priority = 2)
-    public void successfulLogin() {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
-        Assert.assertTrue(elementsPage.isUsernameDisplayed(driver));
-
-    }
-    @Test(priority = 3)
-    public void successfulLogout(){
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
+    public void successfulLoginAndLogout() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
         Assert.assertTrue(elementsPage.isUsernameDisplayed(driver));
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
     }
 
-    @Test(priority = 4)
-    public void testDeleteButtonFunctionality() {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
+    @Test(priority = 3)
+    public void testDeleteButtonFunctionality() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Victor", "Ivanov", "10000", 15000);
         elementsPage.clickOnSubmit(driver);
         Assert.assertTrue(elementsPage.isPerformanceButtonDisplayed(driver));
@@ -69,45 +62,42 @@ public class TestPages {
 
     }
 
-    @Test(priority = 5)
-    public void testSalesFillingForm()  {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
+    @Test(priority = 4)
+    public void testSalesFillingForm() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Angel", "Angelov", "5000", 7000);
         elementsPage.clickOnSubmit(driver);
         Assert.assertTrue("[ERROR] Different than the expected Name!"
-                , elementsPage.getSummaryTableElement(driver,"Angel"));
-        Assert.assertTrue(elementsPage.getSalesPeopleCount() > 0);
-        Assert.assertEquals(elementsPage.getActiveSalesPeopleElement(driver),"Active sales people:" +"\n"+
-               elementsPage.getSalesPeopleCount().toString());
+                , elementsPage.getSummaryTableElement(driver, "Angel"));
+        Assert.assertEquals(elementsPage.getActiveSalesPeopleElement(driver), "Active sales people:" + "\n" + "1");
         elementsPage.clickOnDeleteButton(driver);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
 
+
+    }
+
+    @Test(priority = 5)
+    public void testCalculationSalesForm() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
+        elementsPage.fillSalesForm(driver, "Petar", "Petrov", "75000", 8008);
+        elementsPage.clickOnSubmit(driver);
+        Assert.assertEquals(elementsPage.getActiveSalesPeopleElement(driver), "Active sales people:" + "\n" + "1");
+        Assert.assertTrue((elementsPage.getCalculationTableElement(driver, "75000")));
+        Assert.assertTrue((elementsPage.getCalculationTableElement(driver, "8008")));
+        Assert.assertTrue((elementsPage.getCalculationTableElement(driver, "$-66,992")));
+        elementsPage.clickOnDeleteButton(driver);
+        elementsPage.clickOnLogout(driver);
+        Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
 
     }
 
     @Test(priority = 6)
-    public void testCalculationSalesForm()  {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
-        elementsPage.fillSalesForm(driver, "Petar", "Petrov", "75000", 8008);
-        elementsPage.clickOnSubmit(driver);
-        Assert.assertEquals(elementsPage.getActiveSalesPeopleElement(driver),
-                "Active sales people:"+"\n"+elementsPage.getSalesPeopleCount().toString());
-        Assert.assertTrue((elementsPage.getCalculationTableElement(driver,"75000")));
-        Assert.assertTrue((elementsPage.getCalculationTableElement(driver,"8008")));
-        Assert.assertTrue((elementsPage.getCalculationTableElement(driver,"$-66,992")));
-        elementsPage.clickOnDeleteButton(driver);
-        elementsPage.clickOnLogout(driver);
-        Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
-
-    }
-
-    @Test(priority = 7)
-    public void testPerformanceButtonFunctionality()  {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
+    public void testPerformanceButtonFunctionality() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Anton", "Angelov", "10000", 15000);
         elementsPage.clickOnSubmit(driver);
         Assert.assertTrue(elementsPage.isPerformanceButtonDisplayed(driver));
@@ -120,11 +110,10 @@ public class TestPages {
     }
 
 
-
-    @Test(priority = 8)
-    public void testSummaryTable()  {
-        driver.get(homePage.getHomePageUrl());
-        homePage.fillTheLoginForm(driver,userName,password);
+    @Test(priority = 7)
+    public void testSummaryTable() throws InterruptedException {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Plamen", "Petrov", "5000", 8000);
         elementsPage.clickOnSubmit(driver);
         elementsPage.fillSalesForm(driver, "Victor", "Markov", "75000", 4003);
@@ -132,27 +121,27 @@ public class TestPages {
         elementsPage.fillSalesForm(driver, "Svilen", "Svilenov", "25000", 36009);
         elementsPage.clickOnSubmit(driver);
         Assert.assertTrue("[ERROR] Different than the expected Name!",
-                elementsPage.getSummaryTableElement(driver,"Plamen Petrov"));
+                elementsPage.getSummaryTableElement(driver, "Plamen Petrov"));
         Assert.assertTrue("[ERROR] Different than the expected Name!",
-                elementsPage.getSummaryTableElement(driver,"Victor Markov"));
+                elementsPage.getSummaryTableElement(driver, "Victor Markov"));
         Assert.assertTrue("[ERROR] Different than the expected Name!",
-                elementsPage.getSummaryTableElement(driver,"Svilen Svilenov"));
+                elementsPage.getSummaryTableElement(driver, "Svilen Svilenov"));
         Assert.assertTrue("[ERROR] Different than the expected Target!",
-                elementsPage.getSummaryTableElement(driver,"$5,000"));
+                elementsPage.getSummaryTableElement(driver, "$5,000"));
         Assert.assertTrue("[ERROR] Different than the expected Target!",
-                elementsPage.getSummaryTableElement(driver,"$75,000"));
+                elementsPage.getSummaryTableElement(driver, "$75,000"));
         Assert.assertTrue("[ERROR] Different than the expected Target!",
-                elementsPage.getSummaryTableElement(driver,"$25,000"));
+                elementsPage.getSummaryTableElement(driver, "$25,000"));
         Assert.assertTrue("[ERROR] Different than the expected Result!"
-                , elementsPage.getSummaryTableElement(driver,"$8,000"));
+                , elementsPage.getSummaryTableElement(driver, "$8,000"));
         Assert.assertTrue("[ERROR] Different than the expected Result!"
-                , elementsPage.getSummaryTableElement(driver,"$4,003"));
+                , elementsPage.getSummaryTableElement(driver, "$4,003"));
         Assert.assertTrue("[ERROR] Different than the expected Result!"
-                , elementsPage.getSummaryTableElement(driver,"$36,009"));
+                , elementsPage.getSummaryTableElement(driver, "$36,009"));
         Assert.assertTrue("[ERROR] Different than the expected Result!"
-                , elementsPage.getSummaryTableElement(driver,"$-70,997"));
+                , elementsPage.getSummaryTableElement(driver, "$-70,997"));
         Assert.assertTrue("[ERROR] Different than the expected Result!"
-                , elementsPage.getCalculationTableElement(driver,"$-56,988"));
+                , elementsPage.getCalculationTableElement(driver, "$-56,988"));
         elementsPage.clickOnDeleteButton(driver);
         elementsPage.clickOnLogout(driver);
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
