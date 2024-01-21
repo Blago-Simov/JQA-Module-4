@@ -33,36 +33,35 @@ public class ElementsPage {
 
     private By userNameTextField = By.className("username");
 
-    public void clickOnLogout(WebDriver driver) throws InterruptedException {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", buttonLogout);
+    public void clickOnLogout(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", buttonLogout);
         driver.findElement(buttonLogout).click();
-        Thread.sleep(3000);
     }
 
-    public void clickOnPerformanceButton(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "elementToBeClickable", performanceButton);
+    public void clickOnPerformanceButton(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(10), "elementToBeClickable", performanceButton);
         driver.findElement(performanceButton).click();
 
     }
 
-    public void clickOnDeleteButton(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", deleteAllSalesEntriesButton);
+    public void clickOnDeleteButton(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", deleteAllSalesEntriesButton);
         driver.findElement(deleteAllSalesEntriesButton).click();
     }
 
-    public String getPerformanceMessage(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", performanceTextField);
+    public String getPerformanceMessage(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", performanceTextField);
         return driver.findElement(performanceTextField).getText();
     }
 
-    public boolean isPerformanceButtonDisplayed(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(5), "presenceOfElement", performanceButton);
+    public boolean isPerformanceButtonDisplayed(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", performanceButton);
         return driver.findElement(performanceButton).isEnabled();
     }
 
 
     public void fillSalesForm(WebDriver driver, String firstName, String
-            lastName, String salesTarget, double salesResult) {
+            lastName, String salesTarget, double salesResult){
         waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", firstNameField);
         driver.findElement(firstNameField).sendKeys(firstName);
         waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", lastNameField);
@@ -76,12 +75,12 @@ public class ElementsPage {
 
     }
 
-    public boolean isUsernameDisplayed(WebDriver driver) {
-        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", userNameTextField);
+    public boolean isUsernameDisplayed(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(20), "presenceOfElement", userNameTextField);
         return driver.findElement(userNameTextField).isDisplayed();
     }
 
-    public void clickOnSubmit(WebDriver driver) {
+    public void clickOnSubmit(WebDriver driver){
         waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", submitButton);
         driver.findElement(submitButton).click();
 
@@ -89,7 +88,7 @@ public class ElementsPage {
     }
 
 
-    public Boolean getCalculationTableElement(WebDriver driver, String param) {
+    public Boolean getCalculationTableElement(WebDriver driver, String param){
         waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", salesCalculationSummary);
         calculationTable = driver.findElements(salesCalculationSummary);
         if (calculationTable != null) {
@@ -100,12 +99,12 @@ public class ElementsPage {
         return true;
     }
 
-    public String getActiveSalesPeopleElement(WebDriver driver) {
+    public String getActiveSalesPeopleElement(WebDriver driver){
         calculationTable = driver.findElements(salesCalculationSummary);
         return calculationTable.get(0).getText();
     }
 
-    public Boolean getSummaryTableElement(WebDriver driver, String value) {
+    public Boolean getSummaryTableElement(WebDriver driver, String value){
         waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", tableSummary);
         performanceTable = driver.findElements(tableSummary);
         if (performanceTable != null) {
