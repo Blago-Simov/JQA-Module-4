@@ -40,7 +40,7 @@ public class TestPages {
 
 
     @Test(priority = 2)
-    public void successfulLoginAndLogout() {
+    public void successfulLoginAndLogout() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         Assert.assertTrue(elementsPage.isUsernameDisplayed(driver));
@@ -49,7 +49,7 @@ public class TestPages {
     }
 
     @Test(priority = 3)
-    public void testDeleteButtonFunctionality() {
+    public void testDeleteButtonFunctionality() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Victor", "Ivanov", "10000", 15000);
@@ -63,7 +63,7 @@ public class TestPages {
     }
 
     @Test(priority = 4)
-    public void testSalesFillingForm() {
+    public void testSalesFillingForm() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Angel", "Angelov", "5000", 7000);
@@ -79,7 +79,7 @@ public class TestPages {
     }
 
     @Test(priority = 5)
-    public void testCalculationSalesForm() {
+    public void testCalculationSalesForm() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Petar", "Petrov", "75000", 8008);
@@ -95,7 +95,7 @@ public class TestPages {
     }
 
     @Test(priority = 6)
-    public void testPerformanceButtonFunctionality() {
+    public void testPerformanceButtonFunctionality() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Anton", "Angelov", "10000", 15000);
@@ -111,7 +111,7 @@ public class TestPages {
 
 
     @Test(priority = 7)
-    public void testSummaryTable() {
+    public void testSummaryTable() throws InterruptedException {
         driver.get(homePage.getHomePageUrl(driver));
         homePage.fillTheLoginForm(driver, userName, password);
         elementsPage.fillSalesForm(driver, "Plamen", "Petrov", "5000", 8000);
