@@ -33,9 +33,10 @@ public class ElementsPage {
 
     private By userNameTextField = By.className("username");
 
-    public void clickOnLogout(WebDriver driver){
-        waits.customWait(driver, Duration.ofSeconds(10), "presenceOfElement", buttonLogout);
+   public void clickOnLogout(WebDriver driver) throws InterruptedException {
+        waits.customWait(driver, Duration.ofSeconds(40), "presenceOfElement", buttonLogout);
         driver.findElement(buttonLogout).click();
+        Thread.sleep(3000);
     }
 
     public void clickOnPerformanceButton(WebDriver driver){
