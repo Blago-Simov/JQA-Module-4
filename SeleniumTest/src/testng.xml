@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Users/35989/IdeaProjects/SeleniumTest">
+        <classes>
+            <class name="Tests.TestPages">
+                <methods>
+                    <include name="testTheHoePage"/>
+                    <include name="successfulLoginAndLogout"/>
+                    <include name="testDeleteButtonFunctionality"/>
+                    <include name="testSalesFillingForm"/>
+                    <include name="testCalculationSalesForm"/>
+                    <include name="testPerformanceButtonFunctionality"/>
+                    <include name="testSummaryTable"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
