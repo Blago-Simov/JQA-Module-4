@@ -17,6 +17,12 @@ on:
         required: true
         # The data type of the input
         type: string
+      test_input:
+        description: 'Preposition'
+        default: 'Hello '
+        required: true
+        type: string
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,4 +35,4 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+      run: echo "${{ inputs.test_input }} ${{ inputs.name }}"
