@@ -19,6 +19,8 @@ public class TestPages {
 
     final String userName = "maria";
     final String password = "thoushallnotpass";
+    final String invalidUserName = "123";
+    final String invalidPassword = "notpass";
 
     @BeforeTest
     public void loadHomePage() {
@@ -30,7 +32,7 @@ public class TestPages {
     }
 
     @Test(priority = 1)
-    public void testTheHoePage() {
+    public void testTheHomePage() {
         driver.get(homePage.getHomePageUrl(driver));
         String currentUrl = driver.getCurrentUrl();
         String expectedUrl = homePage.getHomePageUrl(driver) + "/";
@@ -147,6 +149,21 @@ public class TestPages {
         Assert.assertTrue(homePage.getHomePageHeaderText(driver).contains("Hey! Wait a minute... What is this site?"));
 
     }
+
+    @Test(priority = 8)
+    public void tryToLogInWithInvalidUsername() {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, invalidUserName, password);
+        Assert.assertEquals("Invalid username or password.", homePage.getErrorMessageText(driver));
+    }
+
+    @Test(priority = 9)
+    public void tryToLogInWithInvalidPassword() {
+        driver.get(homePage.getHomePageUrl(driver));
+        homePage.fillTheLoginForm(driver, userName, invalidPassword);
+        Assert.assertEquals("Invalid username or password.", homePage.getErrorMessageText(driver));
+    }
+
 
     @AfterTest
     public void tearDown() {
