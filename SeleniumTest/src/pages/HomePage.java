@@ -20,6 +20,7 @@ public class HomePage {
 
     private By loginButton = By.tagName("button");
     private By homePageHeaderText = By.tagName("h4");
+    private By errorMessage = By.xpath("//div[contains(text(),'Invalid username or password.')]");
 
     Waits waits = new Waits();
 
@@ -32,6 +33,10 @@ public class HomePage {
     public String getHomePageHeaderText(WebDriver driver){
         waits.customWait(driver, Duration.ofSeconds(40), "presenceOfElement", homePageHeaderText);
         return driver.findElement(homePageHeaderText).getText();
+    }
+    public String getErrorMessageText(WebDriver driver){
+        waits.customWait(driver, Duration.ofSeconds(20), "presenceOfElement", errorMessage);
+        return driver.findElement(errorMessage).getText();
     }
 
     public void fillTheLoginForm(WebDriver driver, String arg1, String arg2){
